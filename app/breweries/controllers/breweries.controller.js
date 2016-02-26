@@ -10,6 +10,7 @@ exports.findAll = function(req, res) {
             res.status(400).json(err);
         } else {
             res.json(breweries);
+            //console.log(JSON.stringify(breweries, null, 2));
         }
     });
 };
@@ -34,9 +35,11 @@ exports.create = function(req, res) {
 };
 exports.update = function(req, res) {
     var brewery = req.brewery;
+    console.log("log" + brewery);
     brewery.name = req.body.name;
     brewery.description = req.body.description;
     brewery.updated_at = new Date();
+    console.log(JSON.stringify(brewery, null, 2));
     brewery.save(function(err) {
         if (err) {
             res.status(400).json({
@@ -52,6 +55,7 @@ exports.update = function(req, res) {
 };
 exports.delete = function(req, res) {
     var brewery = req.brewery;
+    console.log(brewery);
     brewery.remove(function(err) {
         if (err) {
             res.status(400).json({
@@ -66,6 +70,7 @@ exports.delete = function(req, res) {
     });
 };
 exports.breweryById = function(req, res, next, breweryId) {
+    console.log(breweryId);
     if (!mongoose.Types.ObjectId.isValid(breweryId)) {
         res.status(400).json({
             message: 'Cervejaria inválida'
@@ -75,6 +80,8 @@ exports.breweryById = function(req, res, next, breweryId) {
         if (err) {
             res.status(404).json(err);
         }
+        //console.log(JSON.stringify(req.brewery, null, 2));
+        //console.log(JSON.stringify(brewery, null, 2));
         req.brewery = brewery;
         next();
     });
