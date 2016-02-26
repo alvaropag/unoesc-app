@@ -11,6 +11,12 @@ var BrewerySchema = new Schema({
     },
     description: {
         type: String
+    },
+    created_at: {
+      type: Date
+    },
+    updated_at:{
+      type: Date
     }
 })
 
